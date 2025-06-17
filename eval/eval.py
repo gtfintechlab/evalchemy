@@ -27,6 +27,7 @@ from lm_eval.utils import handle_non_serializable as _orig_handle
 from eval.chat_benchmarks.curator_lm import CuratorAPIModel  # register curator model
 from eval.chat_benchmarks.precomputed_hf_lm import PrecomputedHFLM  # register precomputed_hf model
 from eval.chat_benchmarks.upload_to_hf_lm import UploadInstancesToHF  # register upload_to_hf model
+from eval.chat_benchmarks.ollama_lm import OllamaLM  # register ollama model
 from eval.constants import LIST_OPENAI_MODELS
 from eval.eval_tracker import DCEvaluationTracker
 from eval.task import TaskManager as InstructTaskManager

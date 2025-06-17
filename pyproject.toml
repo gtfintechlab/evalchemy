@@ -10,151 +10,41 @@ authors = [
     { name = "Your Name", email = "your.email@example.com" },
 ]
 readme = "README.md"
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
 ]
 
 dependencies = [
-    # Core ML and Deep Learning
-    "torch",
-    "torchvision",
-    "transformers",
-    "accelerate",
-    "peft",
-    "trl",
-    "bitsandbytes",
-    "sentencepiece",
-    "sentence-transformers>=2.2.2",
-    "optimum==1.12.0",
-    
-    # Machine Learning and Scientific Computing
-    "numpy",
-    "pandas",
+    # Core dependencies - minimal set needed for basic functionality
+    "numpy>=1.24.0,<2.0.0",
+    "pandas>=2.0.0,<3.0.0",
     "scipy",
     "scikit-learn",
-    "faiss-cpu==1.7.4",
-    
-    # ML Experiment Tracking & Visualization
-    "wandb",
-    "tensorboard",
-    "evaluate",
-    
-    # NLP & Text Processing
-    "nltk",
-    "fasttext-wheel",
-    "codebleu",
-    "sacrebleu",
-    "langdetect",
-    "fuzzywuzzy",
-    "python-Levenshtein",
-    
-    # Data Processing & Parsing
+    "torch>=2.0.0,<3.0.0",
+    "transformers>=4.30.0,<5.0.0",
     "datasets",
-    "protobuf",
-    "bs4",
-    "lxml",
-    "fastavro",
-    "jsonpickle",
-    "hjson",
-    "msgpack",
-    
-    # AI Service Providers
-    "openai",
-    "anthropic",
-    "cohere",
-    "google-generativeai",
-    "mistralai",
-    "reka-api",
-    "together",
-    "dashscope",
-    "fschat @ file:eval/chat_benchmarks/MTBench",  # Use relative path that pip will resolve during installation
-    
-    # Cloud & Storage
-    "gcsfs",
-    "google-cloud-aiplatform",
-    "google-auth==2.25.1",
-    "boto3",
-    "botocore",
-    "sagemaker",
-    "fsspec==2024.6.1",
-    "hf-transfer",
     "huggingface_hub[cli]",
-    
-    # Code Analysis & Development
-    "black",
-    "tree-sitter-python",
-    "tree-sitter-java",
-    "tree_sitter",
-    "asttokens",
-    "mypy_extensions",
-    "pyext @ git+https://github.com/penfever/PyExt",
-    
-    # Web & API
-    "fastapi>=0.101.0",
-    "uvicorn>=0.23.0",
-    "aiohttp[speedups]>=3.8",
-    "httpx",
-    "httpx-sse",
-    "requests>=2.28",
-    "websocket",
-    "aiofiles",
-    "bespokelabs-curator>=0.1.16.0",
-    
-    # Database
-    "sqlalchemy",
-    "psycopg[binary]",
-    "psycopg2-binary",
-    "sqlitedict",
-    
-    # Utilities
     "tqdm",
-    "pqdm",
-    "python-box",
+    "requests>=2.28",
+    "lm-eval[vllm] @ git+https://github.com/EtashGuha/lm-evaluation-harness@etashg/tokenize_fix",
+    # Essential utilities
     "fire",
-    "tiktoken",
-    "ray[default]",
-    "backoff>=2.2",
-    "docker-pycreds",
-    "sentry-sdk",
-    "loguru>=0.7",
     "python-dotenv",
-    "shortuuid",
+    "loguru>=0.7",
     "tenacity",
-    "prettytable",
-    "portalocker",
+    "backoff>=2.2",
     "tabulate",
     "colorama",
-    "termcolor",
-    "distro",
     "typing_inspect",
-    "py-cpuinfo",
-    "jiter",
-    "patsy",
     "joblib",
-    "threadpoolctl",
-    "jmespath",
-    "immutabledict",
-
-    # BigCodeBench
-    "appdirs>=1.4.4",
-    "multipledispatch>=0.6.0",
-    "pqdm>=0.2.0",
-    "tempdir>=0.7.1",
-    "tree_sitter_languages>=1.10.2",
-    "wget>=3.2",
-
-    # SWE-bench
-    "swebench>=3.0.4",
-
-    # LM Eval
-    "lm-eval[vllm] @ git+https://github.com/EtashGuha/lm-evaluation-harness@etashg/tokenize_fix",
+    "bespokelabs-curator>=0.1.26",
+    "sqlalchemy>=2.0.41",
 ]
 
 [project.urls]
@@ -168,7 +58,133 @@ dev = [
     "isort",
     "flake8",
     "pre-commit",
-    "isort",
+    "ruff",
+]
+
+ml-extras = [
+    # Additional ML libraries
+    "torchvision",
+    "accelerate",
+    "peft",
+    "trl",
+    "bitsandbytes",
+    "sentencepiece",
+    "sentence-transformers>=2.2.2",
+    "optimum==1.12.0",
+    "faiss-cpu==1.7.4",
+    
+    # ML Experiment Tracking
+    "wandb",
+    "tensorboard",
+    "evaluate",
+]
+
+nlp = [
+    # NLP & Text Processing
+    "nltk",
+    "fasttext-wheel",
+    "codebleu",
+    "sacrebleu",
+    "langdetect",
+    "fuzzywuzzy",
+    "python-Levenshtein",
+    "tiktoken",
+]
+
+cloud-providers = [
+    # AI Service Providers
+    "openai",
+    "anthropic",
+    "cohere",
+    "google-generativeai",
+    "mistralai",
+    "reka-api",
+    "together",
+    "dashscope",
+    
+    # Cloud & Storage
+    "gcsfs",
+    "google-cloud-aiplatform",
+    "google-auth==2.25.1",
+    "boto3",
+    "botocore",
+    "sagemaker",
+    "fsspec==2024.6.1",
+    "hf-transfer",
+]
+
+web = [
+    # Web & API
+    "fastapi>=0.101.0",
+    "uvicorn>=0.23.0",
+    "aiohttp[speedups]>=3.8",
+    "httpx",
+    "httpx-sse",
+    "websocket",
+    "aiofiles",
+    "bespokelabs-curator>=0.1.17",
+    
+    # Database
+    "sqlalchemy",
+    "psycopg[binary]",
+    "psycopg2-binary",
+    "sqlitedict",
+]
+
+code-analysis = [
+    # Code Analysis & Development
+    "tree-sitter-python",
+    "tree-sitter-java",
+    "tree_sitter",
+    "tree_sitter_languages>=1.10.2",
+    "asttokens",
+    "mypy_extensions",
+    "pyext @ git+https://github.com/penfever/PyExt",
+]
+
+utilities = [
+    # Data Processing & Parsing
+    "protobuf",
+    "bs4",
+    "lxml",
+    "fastavro",
+    "jsonpickle",
+    "hjson",
+    "msgpack",
+    
+    # Extra Utilities
+    "pqdm",
+    "python-box",
+    "ray[default]",
+    "docker-pycreds",
+    "sentry-sdk",
+    "shortuuid",
+    "prettytable",
+    "portalocker",
+    "termcolor",
+    "distro",
+    "py-cpuinfo",
+    "jiter",
+    "patsy",
+    "threadpoolctl",
+    "jmespath",
+    "immutabledict",
+    
+    # BigCodeBench
+    "appdirs>=1.4.4",
+    "multipledispatch>=0.6.0",
+    "tempdir>=0.7.1",
+    "wget>=3.2",
+]
+
+benchmarks = [
+    # SWE-bench
+    "swebench>=3.0.4",
+]
+
+# Install all optional dependencies
+all = [
+    "evalchemy[ml-extras,nlp,cloud-providers,web,code-analysis,utilities,benchmarks]",
 ]
 
 [tool.hatch.build.targets.wheel]

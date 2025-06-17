@@ -13,6 +13,10 @@ Evalchemy is developed by the [DataComp community](https://datacomp.ai) and [Bes
 
 - AIME25 and Alice in Wonderland have been added to [available benchmarks](https://github.com/mlfoundations/evalchemy?tab=readme-ov-file#built-in-benchmarks).
 
+#### [2025.02.27] FLaME Financial Evaluation Suite
+
+- Complete integration of the FLaME (Financial Language Model Evaluation) benchmark suite, adding 21 specialized financial tasks for comprehensive evaluation of models on financial understanding, reasoning, and analysis. See the [FLaME integration documentation](docs/flame_integration/README.md) for details.
+
 #### [2025.01.30] API Model Support
 
 - [API models via Curator](https://github.com/bespokelabsai/curator/): With `--model curator` you can now evaluate with even more API based models via [Curator](https://github.com/bespokelabsai/curator/), including all those supported by [LiteLLM](https://docs.litellm.ai/docs/providers) 
@@ -126,6 +130,30 @@ huggingface-cli login
   - **SafetyBench** (Coming soon): [Evaluating the safety of LLMs](https://github.com/thu-coai/SafetyBench)
   - **SciCode Bench** (Coming soon): [Evaluate language models in generating code for solving realistic scientific research problems](https://github.com/scicode-bench/SciCode)
   - **Berkeley Function Calling Leaderboard** (Coming soon): [Evaluating ability of LLMs to use APIs](https://gorilla.cs.berkeley.edu/blogs/13_bfcl_v3_multi_turn.html)
+  - **FLaME (Financial Language Model Evaluation)**: Complete suite of 21 financial domain-specific tasks
+    - Classification Tasks:
+      - **flame_fomc**: Federal Reserve communication classification (hawkish/dovish/neutral)
+      - **flame_fpb**: Financial Phrase Bank sentiment analysis
+      - **flame_headlines**: Financial headline price movement prediction
+      - **flame_banking77**: Banking intent classification (77 classes)
+      - **flame_causal_classification**: Causal relationship classification
+      - **flame_causal_detection**: Binary causal statement detection
+      - **flame_numclaim**: Numerical claim verification
+    - Question Answering Tasks:
+      - **flame_finqa**: Financial QA with numerical reasoning
+      - **flame_convfinqa**: Conversational financial QA
+      - **flame_fiqa_task1** & **flame_fiqa_task2**: Financial opinion QA and sentiment
+      - **flame_subjectiveqa**: Multi-aspect subjective financial analysis
+      - **flame_tatqa**: Table and text-based financial QA
+    - NER/Relation Extraction Tasks:
+      - **flame_finer**: Fine-grained entity recognition with BIO tagging
+      - **flame_finentity**: Financial entity extraction with sentiment
+      - **flame_finred**: Financial relation extraction (14 classes)
+      - **flame_refind**: Multi-class relation extraction
+      - **flame_fnxl**: Cross-lingual numeral extraction with XBRL tagging
+    - Summarization Tasks:
+      - **flame_ectsum**: Earnings call transcript summarization
+      - **flame_edtsum**: Earnings document summarization
   
 
 We have recorded reproduced results against published numbers for these benchmarks in [`reproduced_benchmarks.md`](reproduced_benchmarks.md).
@@ -141,6 +169,35 @@ python -m eval.eval \
     --tasks HumanEval,mmlu \
     --model_args "pretrained=mistralai/Mistral-7B-Instruct-v0.3" \
     --batch_size 2 \
+    --output_path logs
+```
+
+#### Financial Evaluation Examples
+
+Evaluate on FLaME financial tasks:
+```bash
+# Basic financial sentiment and classification
+python -m eval.eval \
+    --model hf \
+    --tasks flame_fpb,flame_fomc,flame_headlines \
+    --model_args "pretrained=mistralai/Mistral-7B-Instruct-v0.3" \
+    --batch_size 8 \
+    --output_path logs
+
+# Financial QA and reasoning
+python -m eval.eval \
+    --model hf \
+    --tasks flame_finqa,flame_convfinqa,flame_tatqa \
+    --model_args "pretrained=meta-llama/Meta-Llama-3-8B-Instruct" \
+    --batch_size 4 \
+    --output_path logs
+
+# Using Ollama for local evaluation
+python -m eval.eval \
+    --model ollama \
+    --tasks flame_fomc,flame_fpb \
+    --model_args "model=qwen2.5:7b" \
+    --batch_size 1 \
     --output_path logs
 ```
 
